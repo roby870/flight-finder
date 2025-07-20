@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:13
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  db_test:
+      image: postgres:13
+      restart: always
+      env_file:
+        - .env.test
+      ports:
+        - "5433:5432" 
+
+  test:
+    build: .
+    depends_on:
+      - db_test
+    env_file:
+      - .env.test
+    command: ["pytest", "--disable-warnings", "-v"]
+    volumes:
+      - .:/app
+
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app/app
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:

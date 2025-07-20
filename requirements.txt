@@ -1,0 +1,11 @@
+pre-commit
+pylint
+black
+fastapi
+uvicorn
+sqlalchemy
+alembic
+psycopg2
+pydantic
+pydantic
+pytest
