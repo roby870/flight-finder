@@ -1,6 +1,7 @@
 from app.services.journey_builder import StandardJourneyBuilder
 from app.services.flight_index import FlightIndex
-
+from app.models import FlightEvent
+from app.services.journey import Journey
 
 class JourneySearchBase:
     def __init__(self, index: FlightIndex, from_city: str, to_city: str):
@@ -9,7 +10,7 @@ class JourneySearchBase:
         self.to_city = to_city
         self.journeys = []
 
-    def find_journeys(self):
+    def find_journeys(self) -> list[Journey]:
         for first in self.index.get_from(self.from_city):
             if self.should_add_direct(first):
                 j = StandardJourneyBuilder().add_flight(first).build()
@@ -28,7 +29,7 @@ class JourneySearchBase:
 
         return self.journeys
 
-    def should_add_direct(self, first: "FlightEvent") -> bool:
+    def should_add_direct(self, first: FlightEvent) -> bool:
         return False
 
     def should_add_one_connection(self) -> bool:
@@ -36,13 +37,13 @@ class JourneySearchBase:
 
 
 class DirectOnlySearch(JourneySearchBase):
-    def should_add_direct(self, first):
+    def should_add_direct(self, first: FlightEvent) -> bool:
         return first.to_city == self.to_city
 
 
 class OneConnectionSearch(JourneySearchBase):
-    def should_add_direct(self, first):
+    def should_add_direct(self, first: FlightEvent) -> bool:
         return first.to_city == self.to_city
 
-    def should_add_one_connection(self):
+    def should_add_one_connection(self) -> bool:
         return True
