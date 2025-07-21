@@ -1,4 +1,4 @@
-from datetime import datetime,timedelta  
+from datetime import timedelta  
 from app.services.journey import Journey
 
 class JourneyBuilder:
@@ -9,11 +9,11 @@ class JourneyBuilder:
     def build_if_valid(flights):
         if len(flights) > 2:
             return None
-        duration = datetime.fromisoformat(flights[-1].arrival_time) - datetime.fromisoformat(flights[0].departure_time)
+        duration = flights[-1].arrival_time - flights[0].departure_time
         if duration > JourneyBuilder.MAX_DURATION:
             return None
         if len(flights) == 2:
-            layover = datetime.fromisoformat(flights[1].departure_time) - datetime.fromisoformat(flights[0].arrival_time)
+            layover = flights[1].departure_time - flights[0].arrival_time
             if not (timedelta(0) <= layover <= JourneyBuilder.MAX_LAYOVER):
                 return None
         return Journey(flights)

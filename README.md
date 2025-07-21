@@ -29,6 +29,10 @@ Once you have cloned the repository, run `docker-compose build` in the root dire
 Once the application is up and running, you can test the API using Swagger. Swagger provides a graphical interface to interact with the API more easily.
 Open your web browser and go to the following URL: http://localhost:8000/docs. On this page, you will find the automatically generated API documentation, and you will be able to test the available endpoints.
 
+## Journey Seeds
+
+There are some journeys seeds in the database. You can find them in the repository.py file.
+
 
 ## Tests
 

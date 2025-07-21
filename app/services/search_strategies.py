@@ -1,6 +1,5 @@
 from app.services.journey_builder import JourneyBuilder
 from app.services.flight_index import FlightIndex
-from datetime import datetime
 
 class JourneySearchBase:
     def __init__(self, index: FlightIndex, from_city: str, to_city: str):
@@ -18,7 +17,7 @@ class JourneySearchBase:
 
             if self.should_add_one_connection():
                 for second in self.index.get_from(first.to_city):
-                    layover = (datetime.fromisoformat(second.departure_time) - datetime.fromisoformat(first.arrival_time)).total_seconds()
+                    layover = (second.departure_time - first.arrival_time).total_seconds()
                     if (second.to_city == self.to_city and 0 <= layover <= 4 * 3600):
                         j = JourneyBuilder.build_if_valid([first, second])
                         if j:
@@ -26,7 +25,6 @@ class JourneySearchBase:
 
         return self.journeys
 
-    # Hooks
     def should_add_direct(self, first: 'FlightEvent') -> bool:
         return False
 

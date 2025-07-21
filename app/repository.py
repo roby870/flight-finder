@@ -1,9 +1,9 @@
 import os
-from typing import Optional
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
-from . import schemas
 from .models import FlightEvent
+from datetime import timedelta
+from datetime import datetime
 
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -27,4 +27,11 @@ def get_db():
         yield db
     finally:
         db.close()
+
+def get_flights(db: Session, date: str):
+    date_start = datetime.fromisoformat(date)
+    return db.query(FlightEvent).filter(
+        FlightEvent.departure_time >= date_start,
+        FlightEvent.departure_time < date_start + timedelta(days=1)
+    ).all()
 
