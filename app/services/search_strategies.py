@@ -1,4 +1,4 @@
-from app.services.journey_builder import JourneyBuilder
+from app.services.journey_builder import StandardJourneyBuilder
 from app.services.flight_index import FlightIndex
 
 
@@ -12,7 +12,7 @@ class JourneySearchBase:
     def find_journeys(self):
         for first in self.index.get_from(self.from_city):
             if self.should_add_direct(first):
-                j = JourneyBuilder.build_if_valid([first])
+                j = StandardJourneyBuilder().add_flight(first).build()
                 if j:
                     self.journeys.append(j)
 
@@ -22,7 +22,7 @@ class JourneySearchBase:
                         second.departure_time - first.arrival_time
                     ).total_seconds()
                     if second.to_city == self.to_city and 0 <= layover <= 4 * 3600:
-                        j = JourneyBuilder.build_if_valid([first, second])
+                        j = StandardJourneyBuilder().add_flight(first).add_flight(second).build()
                         if j:
                             self.journeys.append(j)
 

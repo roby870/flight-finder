@@ -1,5 +1,4 @@
 from collections import defaultdict
-from datetime import datetime
 from zoneinfo import ZoneInfo
 
 
@@ -14,5 +13,5 @@ class FlightIndex:
         for f in self.flights:
             self.by_origin[f.from_city].append(f)
 
-    def get_from(self, city):
+    def get_from(self, city) -> list["FlightEvent"]:
         return self.by_origin.get(city, [])

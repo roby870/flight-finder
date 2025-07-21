@@ -44,7 +44,7 @@ def search_journeys(
     to_city: str = Query(...),
     date: str = Query(...),
     db: Session = Depends(get_db),
-):
+) -> list[dict]:
     """
     Search for flight journeys between two cities on a given date.
 

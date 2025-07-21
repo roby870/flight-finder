@@ -52,7 +52,7 @@ def get_db():
         db.close()
 
 
-def get_flights(db: Session, date: str):
+def get_flights(db: Session, date: str) -> list[FlightEvent]:
     date_start = datetime.fromisoformat(date)
     return (
         db.query(FlightEvent)
