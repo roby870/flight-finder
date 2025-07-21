@@ -4,6 +4,7 @@ FROM python:3.11-slim
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
+    git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -12,6 +13,7 @@ WORKDIR /app
 COPY ./requirements.txt /app/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+RUN pip install pre-commit black==24.10.0 pylint==3.0.0a5
 
 COPY ./app /app/app
 COPY ./tests /app/tests

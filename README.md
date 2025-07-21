@@ -10,7 +10,7 @@ Implement an API in FastAPI that:
 ## Requirements
 
 - [Docker](https://www.docker.com/) (recommended version: 20.10 or higher).
-- [Docker Compose](https://docs.docker.com/compose/) (recommended version: 1.29 or higher).
+- [Docker Compose](https://docs.docker.com/compose/) (recommended version: 2.0 or higher).
 
 ## .env file
 
@@ -38,3 +38,29 @@ There are some journeys seeds in the database. You can find them in the reposito
 
 You can run tests with `docker-compose run test`
 
+## Code Formatting and Linting with Pre-commit
+
+This project uses [`pre-commit`](https://pre-commit.com/) to automatically format and lint Python code before each commit. It includes the following tools:
+
+- **[Black](https://black.readthedocs.io/)** – a code formatter for enforcing style consistency.
+- **[Pylint](https://pylint.pycqa.org/)** – a linter to identify code issues and enforce coding standards.
+
+### 1. Install Pre-commit
+
+Make sure you have Python (≥ 3.7) installed on your local machine, then install `pre-commit` globally:
+
+```bash
+pip install pre-commit
+```
+
+### 2. Install Pre-commit Hooks
+
+Navigate to the root directory of the project and run:
+
+```bash
+pre-commit install
+```
+
+### 3. Run Pre-commit
+
+Pre-commit will automatically format and lint your code before each commit. If there are any issues, you will need to fix them before the commit can be completed.

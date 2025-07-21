@@ -2,6 +2,7 @@ from .database import Base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.sql.sqltypes import TIMESTAMP
 
+
 class FlightEvent(Base):
     __tablename__ = "flight_events"
 
@@ -11,4 +12,3 @@ class FlightEvent(Base):
     to_city = Column(String, nullable=False)
     departure_time = Column(TIMESTAMP(timezone=True), nullable=False)
     arrival_time = Column(TIMESTAMP(timezone=True), nullable=False)
-    

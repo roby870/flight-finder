@@ -1,5 +1,6 @@
-from datetime import timedelta  
+from datetime import timedelta
 from app.services.journey import Journey
+
 
 class JourneyBuilder:
     MAX_DURATION = timedelta(hours=24)

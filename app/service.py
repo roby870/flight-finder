@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from .serializer import serialize_journey
 
+
 def get_flights(db: Session, date: str, from_city: str, to_city: str):
     flights = repository.get_flights(db, date)
     index = FlightIndex(flights, date)
